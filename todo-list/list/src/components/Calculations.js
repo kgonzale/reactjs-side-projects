@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import Addition from './Addition.js';
 
-export default class App extends Component {
+export default class Calculations extends Component {
     constructor(props){
         super(props);
 
@@ -30,7 +31,11 @@ export default class App extends Component {
     }
 
 
-    render(){
-        return null;
+    render() {
+        return (
+            <div>
+                <Addition onAddTodo={this.onAddTodo} />
+            </div>
+        );
     }
 }
