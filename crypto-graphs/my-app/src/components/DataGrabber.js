@@ -10,8 +10,8 @@ export default class DataGrabber extends Component {
     };
   }
 
-  componentDidMount = () => {
-    axios({
+  async componentDidMount() {
+    const apiResponse = await axios({
       method: "get",
       url:
         "https://cors-anywhere.herokuapp.com/https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest",
@@ -19,14 +19,23 @@ export default class DataGrabber extends Component {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        "X-CMC_PRO_API_KEY": "fuck off"
+        "X-CMC_PRO_API_KEY": "eat my ass"
       }
     }).then(function(response) {
-      console.log(response);
+      // console.log(response.data.data);
+      return response.data.data.slice();
     });
+
+    this.bitcoin(apiResponse);
+
+    setInterval(apiResponse, 120000);
+  }
+
+  bitcoin = apiResponse => {
+    // console.log(apiResponse);
   };
 
   render() {
-    return <div>kevin</div>;
+    return <div />;
   }
 }
