@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Dashboard from "./Dashboard.js";
 const axios = require("axios");
 
 export default class DataGrabber extends Component {
@@ -19,7 +20,7 @@ export default class DataGrabber extends Component {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        "X-CMC_PRO_API_KEY": "eat my ass"
+        "X-CMC_PRO_API_KEY": "eat me"
       }
     }).then(function(response) {
       // console.log(response.data.data);
@@ -27,15 +28,17 @@ export default class DataGrabber extends Component {
     });
 
     this.bitcoin(apiResponse);
-
-    setInterval(apiResponse, 120000);
   }
 
   bitcoin = apiResponse => {
-    // console.log(apiResponse);
+    const data = apiResponse.find(item => {
+      return item.name === "Bitcoin";
+    });
+
+    this.setState({ bitcoin: data });
   };
 
   render() {
-    return <div />;
+    return <Dashboard bitcoin={this.state.bitcoin} />;
   }
 }
