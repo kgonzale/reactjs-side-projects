@@ -20,7 +20,7 @@ export default class DataGrabber extends Component {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        "X-CMC_PRO_API_KEY": "eat me"
+        "X-CMC_PRO_API_KEY": ""
       }
     }).then(function(response) {
       // console.log(response.data.data);
@@ -34,6 +34,8 @@ export default class DataGrabber extends Component {
     const data = apiResponse.find(item => {
       return item.name === "Bitcoin";
     });
+
+    console.log(apiResponse);
 
     this.setState({ bitcoin: data });
   };
