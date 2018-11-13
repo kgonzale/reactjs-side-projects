@@ -30,7 +30,18 @@ export default class DataGrabber extends Component {
     });
 
     this.crypto(apiResponse);
+    this.allCrypto(apiResponse);
   }
+
+  allCrypto = apiResponse => {
+    console.log(apiResponse);
+
+    const refinedArray = apiResponse.map(item => {
+      return { name: item.name, price: item.price };
+    });
+
+    console.log(refinedArray);
+  };
 
   crypto = apiResponse => {
     this.setState({
