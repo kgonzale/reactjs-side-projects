@@ -20,7 +20,6 @@ const styles = theme => ({
 });
 
 const Dashboard = props => {
-  console.log(props);
   const { classes } = props;
 
   //name, symbol
@@ -30,6 +29,35 @@ const Dashboard = props => {
   loadCSS(
     "https://use.fontawesome.com/releases/v5.1.0/css/all.css",
     document.querySelector("#insertion-point-jss")
+  );
+
+  const TokenGrid = ({ token }) => (
+    <Grid container spacing={24}>
+      <Grid item xs={1}>
+        <Paper className={classes.paper}>
+          {/* <Icon className={classNames(classes.icon, "fab fa-bitcoin")} /> */}
+          {token.name}
+        </Paper>
+      </Grid>
+      <Grid item xs={2}>
+        <Paper className={classes.paper}>{token.quote.USD.price}</Paper>
+      </Grid>
+      <Grid item xs={3}>
+        <Paper className={classes.paper}>
+          {token.quote.USD.percent_change_1h}
+        </Paper>
+      </Grid>
+      <Grid item xs={3}>
+        <Paper className={classes.paper}>
+          {token.quote.USD.percent_change_24h}
+        </Paper>
+      </Grid>
+      <Grid item xs={3}>
+        <Paper className={classes.paper}>
+          {token.quote.USD.percent_change_7d}
+        </Paper>
+      </Grid>
+    </Grid>
   );
 
   return (
@@ -51,27 +79,9 @@ const Dashboard = props => {
           <Paper className={classes.paper}>Percent Change: 7d</Paper>
         </Grid>
       </Grid>
-
-      <Grid container spacing={24}>
-        <Grid item xs={1}>
-          <Paper className={classes.paper}>
-            <Icon className={classNames(classes.icon, "fab fa-bitcoin")} />
-            {props.bitcoin.name}
-          </Paper>
-        </Grid>
-        <Grid item xs={2}>
-          <Paper className={classes.paper} />
-        </Grid>
-        <Grid item xs={3}>
-          <Paper className={classes.paper}>Percent Change: 1hr</Paper>
-        </Grid>
-        <Grid item xs={3}>
-          <Paper className={classes.paper}>Percent Change: 24hr</Paper>
-        </Grid>
-        <Grid item xs={3}>
-          <Paper className={classes.paper}>Percent Change: 7d</Paper>
-        </Grid>
-      </Grid>
+      {props.bitcoin && <TokenGrid token={props.bitcoin} />}
+      {props.eth && <TokenGrid token={props.eth} />}
+      {props.ltc && <TokenGrid token={props.ltc} />}
     </div>
   );
 };

@@ -7,7 +7,9 @@ export default class DataGrabber extends Component {
     super(props);
 
     this.state = {
-      bitcoin: ""
+      bitcoin: null,
+      eth: null,
+      ltc: null
     };
   }
 
@@ -27,20 +29,24 @@ export default class DataGrabber extends Component {
       return response.data.data.slice();
     });
 
-    this.bitcoin(apiResponse);
+    this.crypto(apiResponse);
   }
 
-  bitcoin = apiResponse => {
-    const data = apiResponse.find(item => {
-      return item.name === "Bitcoin";
+  crypto = apiResponse => {
+    this.setState({
+      bitcoin: apiResponse.find(item => item.name === "Bitcoin"),
+      eth: apiResponse.find(item => item.name === "Ethereum"),
+      ltc: apiResponse.find(item => item.name === "Litecoin")
     });
-
-    console.log(apiResponse);
-
-    this.setState({ bitcoin: data });
   };
 
   render() {
-    return <Dashboard bitcoin={this.state.bitcoin} />;
+    return (
+      <Dashboard
+        bitcoin={this.state.bitcoin}
+        ltc={this.state.ltc}
+        eth={this.state.eth}
+      />
+    );
   }
 }
