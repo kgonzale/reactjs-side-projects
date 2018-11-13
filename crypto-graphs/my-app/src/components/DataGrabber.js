@@ -10,7 +10,8 @@ export default class DataGrabber extends Component {
       // bitcoin: null,
       // eth: null,
       // ltc: null
-      refined: null
+      refined: null,
+      loading: true
     };
   }
 
@@ -23,14 +24,14 @@ export default class DataGrabber extends Component {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        "X-CMC_PRO_API_KEY": ""
+        "X-CMC_PRO_API_KEY": "2"
       }
     }).then(function(response) {
       // console.log(response.data.data);
       return response.data.data.slice();
     });
 
-    this.crypto(apiResponse);
+    // this.crypto(apiResponse);
     this.allCrypto(apiResponse);
   }
 

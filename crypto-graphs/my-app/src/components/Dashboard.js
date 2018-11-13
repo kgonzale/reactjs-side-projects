@@ -40,21 +40,24 @@ const Dashboard = props => {
         </Paper>
       </Grid>
       <Grid item xs={2}>
-        <Paper className={classes.paper}>{token.quote.USD.price}</Paper>
+        <Paper className={classes.paper}>{token.price}</Paper>
       </Grid>
       <Grid item xs={3}>
         <Paper className={classes.paper}>
-          {token.quote.USD.percent_change_1h}
+          {/* {token.quote.USD.percent_change_1h} */}
+          {token.oneHr}
         </Paper>
       </Grid>
       <Grid item xs={3}>
         <Paper className={classes.paper}>
-          {token.quote.USD.percent_change_24h}
+          {/* {token.quote.USD.percent_change_24h} */}
+          {token.twentyFourHr}
         </Paper>
       </Grid>
       <Grid item xs={3}>
         <Paper className={classes.paper}>
-          {token.quote.USD.percent_change_7d}
+          {/* {token.quote.USD.percent_change_7d} */}
+          {token.sevenDays}
         </Paper>
       </Grid>
     </Grid>
