@@ -79,9 +79,14 @@ const Dashboard = props => {
           <Paper className={classes.paper}>Percent Change: 7d</Paper>
         </Grid>
       </Grid>
-      {props.bitcoin && <TokenGrid token={props.bitcoin} />}
+      {/* {props.bitcoin && <TokenGrid token={props.bitcoin} />}
       {props.eth && <TokenGrid token={props.eth} />}
-      {props.ltc && <TokenGrid token={props.ltc} />}
+      {props.ltc && <TokenGrid token={props.ltc} />} */}
+
+      {props.refinedResponse &&
+        props.refinedResponse.map(item => {
+          return <TokenGrid token={item} />;
+        })}
     </div>
   );
 };

@@ -7,9 +7,10 @@ export default class DataGrabber extends Component {
     super(props);
 
     this.state = {
-      bitcoin: null,
-      eth: null,
-      ltc: null
+      // bitcoin: null,
+      // eth: null,
+      // ltc: null
+      refined: null
     };
   }
 
@@ -34,29 +35,37 @@ export default class DataGrabber extends Component {
   }
 
   allCrypto = apiResponse => {
-    console.log(apiResponse);
+    // console.log(apiResponse);
 
     const refinedArray = apiResponse.map(item => {
-      return { name: item.name, price: item.price };
+      return {
+        name: item.name,
+        price: item.quote.USD.price,
+        oneHr: item.quote.USD.percent_change_1h,
+        twentyFourHr: item.quote.USD.percent_change_24h,
+        sevenDays: item.quote.USD.percent_change_7d
+      };
     });
 
-    console.log(refinedArray);
+    this.setState({ refined: refinedArray });
+
+    // console.log(refinedArray);
   };
 
-  crypto = apiResponse => {
-    this.setState({
-      bitcoin: apiResponse.find(item => item.name === "Bitcoin"),
-      eth: apiResponse.find(item => item.name === "Ethereum"),
-      ltc: apiResponse.find(item => item.name === "Litecoin")
-    });
-  };
+  // crypto = apiResponse => {
+  //   this.setState({
+  //     bitcoin: apiResponse.find(item => item.name === "Bitcoin"),
+  //     eth: apiResponse.find(item => item.name === "Ethereum"),
+  //     ltc: apiResponse.find(item => item.name === "Litecoin")
+  //   });
+  // };
 
   render() {
     return (
       <Dashboard
-        bitcoin={this.state.bitcoin}
-        ltc={this.state.ltc}
-        eth={this.state.eth}
+        refinedResponse={this.state.refined}
+        // ltc={this.state.ltc}
+        // eth={this.state.eth}
       />
     );
   }
