@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Dashboard from "./Dashboard.js";
+import Loading from "./Loading.js";
 const axios = require("axios");
 
 export default class DataGrabber extends Component {
@@ -24,7 +25,7 @@ export default class DataGrabber extends Component {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        "X-CMC_PRO_API_KEY": "2"
+        "X-CMC_PRO_API_KEY": "6368b13b-66dc-"
       }
     }).then(function(response) {
       // console.log(response.data.data);
@@ -33,6 +34,8 @@ export default class DataGrabber extends Component {
 
     // this.crypto(apiResponse);
     this.allCrypto(apiResponse);
+
+    this.setState({ loading: false });
   }
 
   allCrypto = apiResponse => {
@@ -63,11 +66,14 @@ export default class DataGrabber extends Component {
 
   render() {
     return (
-      <Dashboard
-        refinedResponse={this.state.refined}
-        // ltc={this.state.ltc}
-        // eth={this.state.eth}
-      />
+      <React.Fragment>
+        {this.state.loading ? (
+          <Loading />
+        ) : (
+          <Dashboard refinedResponse={this.state.refined} />
+        )}
+      </React.Fragment>
+      // <Dashboard refinedResponse={this.state.refined} />
     );
   }
 }

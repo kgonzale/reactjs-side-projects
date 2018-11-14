@@ -2,65 +2,52 @@ import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-import { loadCSS } from "fg-loadcss/src/loadCSS";
-import Icon from "@material-ui/core/Icon";
-import classNames from "classnames";
+import indigo from "@material-ui/core/colors/indigo";
+import pink from "@material-ui/core/colors/pink";
+import red from "@material-ui/core/colors/red";
 
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    maxWidth: 1200,
-    justify: "center"
+    maxWidth: 1400
   },
   paper: {
     padding: theme.spacing.unit * 2,
     textAlign: "center",
     color: theme.palette.text.secondary
+  },
+  palette: {
+    primary: {
+      primary: indigo,
+      secondary: pink,
+      error: red
+    }
   }
 });
 
 const Dashboard = props => {
   const { classes } = props;
 
-  //name, symbol
-  //price
-  //percent change 1h, 7d, 24hr
-
-  loadCSS(
-    "https://use.fontawesome.com/releases/v5.1.0/css/all.css",
-    document.querySelector("#insertion-point-jss")
-  );
-
   const TokenGrid = ({ token }) => (
-    <Grid container spacing={24}>
-      <Grid item xs={1}>
-        <Paper className={classes.paper}>
-          {/* <Icon className={classNames(classes.icon, "fab fa-bitcoin")} /> */}
-          {token.name}
-        </Paper>
+    <div className={classes.root}>
+      <Grid container spacing={24}>
+        <Grid item xs={1}>
+          <Paper className={classes.paper}>{token.name}</Paper>
+        </Grid>
+        <Grid item xs={2}>
+          <Paper className={classes.paper}>{token.price}</Paper>
+        </Grid>
+        <Grid item xs={3}>
+          <Paper className={classes.paper}>{token.oneHr}</Paper>
+        </Grid>
+        <Grid item xs={3}>
+          <Paper className={classes.paper}>{token.twentyFourHr}</Paper>
+        </Grid>
+        <Grid item xs={3}>
+          <Paper className={classes.paper}>{token.sevenDays}</Paper>
+        </Grid>
       </Grid>
-      <Grid item xs={2}>
-        <Paper className={classes.paper}>{token.price}</Paper>
-      </Grid>
-      <Grid item xs={3}>
-        <Paper className={classes.paper}>
-          {/* {token.quote.USD.percent_change_1h} */}
-          {token.oneHr}
-        </Paper>
-      </Grid>
-      <Grid item xs={3}>
-        <Paper className={classes.paper}>
-          {/* {token.quote.USD.percent_change_24h} */}
-          {token.twentyFourHr}
-        </Paper>
-      </Grid>
-      <Grid item xs={3}>
-        <Paper className={classes.paper}>
-          {/* {token.quote.USD.percent_change_7d} */}
-          {token.sevenDays}
-        </Paper>
-      </Grid>
-    </Grid>
+    </div>
   );
 
   return (
@@ -82,10 +69,6 @@ const Dashboard = props => {
           <Paper className={classes.paper}>Percent Change: 7d</Paper>
         </Grid>
       </Grid>
-      {/* {props.bitcoin && <TokenGrid token={props.bitcoin} />}
-      {props.eth && <TokenGrid token={props.eth} />}
-      {props.ltc && <TokenGrid token={props.ltc} />} */}
-
       {props.refinedResponse &&
         props.refinedResponse.map(item => {
           return <TokenGrid token={item} />;
