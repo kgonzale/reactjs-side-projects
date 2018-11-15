@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Dashboard from "./Dashboard.js";
 import Loading from "./Loading.js";
+import Button from "@material-ui/core/Button";
+
 const axios = require("axios");
 
 export default class DataGrabber extends Component {
@@ -8,9 +10,6 @@ export default class DataGrabber extends Component {
     super(props);
 
     this.state = {
-      // bitcoin: null,
-      // eth: null,
-      // ltc: null
       refined: null,
       loading: true
     };
@@ -25,22 +24,17 @@ export default class DataGrabber extends Component {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        "X-CMC_PRO_API_KEY": "6368b13b-66dc-"
+        "X-CMC_PRO_API_KEY": "6368b13b-66dc-40d1-881d-5fb9d4af01b2"
       }
     }).then(function(response) {
-      // console.log(response.data.data);
       return response.data.data.slice();
     });
-
-    // this.crypto(apiResponse);
     this.allCrypto(apiResponse);
 
     this.setState({ loading: false });
   }
 
   allCrypto = apiResponse => {
-    // console.log(apiResponse);
-
     const refinedArray = apiResponse.map(item => {
       return {
         name: item.name,
@@ -52,28 +46,33 @@ export default class DataGrabber extends Component {
     });
 
     this.setState({ refined: refinedArray });
-
-    // console.log(refinedArray);
   };
 
-  // crypto = apiResponse => {
-  //   this.setState({
-  //     bitcoin: apiResponse.find(item => item.name === "Bitcoin"),
-  //     eth: apiResponse.find(item => item.name === "Ethereum"),
-  //     ltc: apiResponse.find(item => item.name === "Litecoin")
-  //   });
-  // };
+  sortPrice = mod => {
+    let refinedEvenMore = this.state.refined.slice();
+    let test = refinedEvenMore.sort((a, b) => mod * (b.price - a.price));
+
+    this.setState({ refined: test });
+  };
 
   render() {
     return (
       <React.Fragment>
+        <div>
+          <Button variant="outlined" onClick={() => this.sortPrice(1)}>
+            Descending order...
+          </Button>
+          <Button variant="outlined" onClick={() => this.sortPrice(-1)}>
+            Ascending order...
+          </Button>
+        </div>
+
         {this.state.loading ? (
           <Loading />
         ) : (
           <Dashboard refinedResponse={this.state.refined} />
         )}
       </React.Fragment>
-      // <Dashboard refinedResponse={this.state.refined} />
     );
   }
 }

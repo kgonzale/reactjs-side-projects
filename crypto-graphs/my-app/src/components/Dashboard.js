@@ -2,9 +2,6 @@ import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-import indigo from "@material-ui/core/colors/indigo";
-import pink from "@material-ui/core/colors/pink";
-import red from "@material-ui/core/colors/red";
 
 const styles = theme => ({
   root: {
@@ -15,13 +12,6 @@ const styles = theme => ({
     padding: theme.spacing.unit * 2,
     textAlign: "center",
     color: theme.palette.text.secondary
-  },
-  palette: {
-    primary: {
-      primary: indigo,
-      secondary: pink,
-      error: red
-    }
   }
 });
 
