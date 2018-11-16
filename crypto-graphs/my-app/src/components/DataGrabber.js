@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Dashboard from "./Dashboard.js";
 import Loading from "./Loading.js";
-import Button from "@material-ui/core/Button";
 
 const axios = require("axios");
 
@@ -24,7 +23,7 @@ export default class DataGrabber extends Component {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        "X-CMC_PRO_API_KEY": "6368b13b-66dc-40d1-881d-5fb9d4af01b2"
+        "X-CMC_PRO_API_KEY": ""
       }
     }).then(function(response) {
       return response.data.data.slice();
@@ -58,19 +57,13 @@ export default class DataGrabber extends Component {
   render() {
     return (
       <React.Fragment>
-        <div>
-          <Button variant="outlined" onClick={() => this.sortPrice(1)}>
-            Descending order...
-          </Button>
-          <Button variant="outlined" onClick={() => this.sortPrice(-1)}>
-            Ascending order...
-          </Button>
-        </div>
-
         {this.state.loading ? (
           <Loading />
         ) : (
-          <Dashboard refinedResponse={this.state.refined} />
+          <Dashboard
+            refinedResponse={this.state.refined}
+            button={this.sortPrice}
+          />
         )}
       </React.Fragment>
     );

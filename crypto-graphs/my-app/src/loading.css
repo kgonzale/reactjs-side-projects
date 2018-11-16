@@ -6,6 +6,12 @@
   margin: auto;
 }
 
+#center {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
 #text {
   font-size: 72px;
 }

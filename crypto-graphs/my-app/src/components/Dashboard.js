@@ -2,16 +2,24 @@ import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
+import classNames from "classnames";
+import "../loading.css";
 
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    maxWidth: 1400
+    maxWidth: 1400,
+    justifyContent: "center"
   },
   paper: {
     padding: theme.spacing.unit * 2,
     textAlign: "center",
     color: theme.palette.text.secondary
+  },
+  button: {
+    margin: theme.spacing.unit,
+    justifyContent: "center"
   }
 });
 
@@ -42,6 +50,26 @@ const Dashboard = props => {
 
   return (
     <div className={classes.root}>
+      <div>
+        <Button
+          id="center"
+          variant="contained"
+          className={classNames(classes.button)}
+          onClick={() => props.button(1)}
+          color="primary"
+        >
+          Decreasing Order
+        </Button>
+        <Button
+          id="center"
+          variant="contained"
+          onClick={() => props.button(-1)}
+          color="primary"
+          className={classNames(classes.button)}
+        >
+          Increasing Order
+        </Button>
+      </div>
       <Grid container spacing={24} justify="center">
         <Grid item xs={1}>
           <Paper className={classes.paper}>Crypto</Paper>
@@ -60,8 +88,8 @@ const Dashboard = props => {
         </Grid>
       </Grid>
       {props.refinedResponse &&
-        props.refinedResponse.map(item => {
-          return <TokenGrid token={item} />;
+        props.refinedResponse.map((item, index) => {
+          return <TokenGrid token={item} key={index} />;
         })}
     </div>
   );
