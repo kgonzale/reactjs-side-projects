@@ -1,31 +1,23 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 
-class Header extends Component {
-  constructor(props) {
-    super(props);
+const Header = (props) => {
+  const [edit, setEdit] = useState("call someone")
 
-    this.state = {
-      edit: "call someone"
-    };
+  const handleOnChange = (e) => {
+    setEdit(e.target.value)
+  }
+  
+  const handleOnClick = () => {
+    props.onAddTodo(edit);
+    setEdit('')
   }
 
-  handleOnChange = e => {
-    this.setState({ edit: e.target.value });
-  };
-
-  handleOnClick = () => {
-    this.props.onAddTodo(this.state.edit);
-    this.setState({ edit: "" });
-  };
-
-  render() {
-    return (
-      <div>
-        <button onClick={this.handleOnClick}>Add Todo</button>
-        <input onChange={this.handleOnChange} value={this.state.edit} />
-      </div>
-    );
-  }
+  return (
+    <div>
+      <button onClick={handleOnClick}>Add Todo</button>
+      <input onChange={handleOnChange} value={edit} />
+    </div>
+  );
 }
 
 export default Header;
