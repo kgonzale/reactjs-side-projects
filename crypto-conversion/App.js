@@ -1,43 +1,30 @@
-import React, { Component } from 'react';
+//https://overreacted.io/making-setinterval-declarative-with-react-hooks/
+
+import React, { useState } from 'react';
 
 const btcUrl = 'https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD'
 const ethUrl = 'https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD'
 
-class App extends Component {
-  constructor(props) {
-    super(props);
+const App = () => {
+  const [btc, setBtc] = useState('')
+  const [eth, setEth] = useState('')
 
-    this.state = {
-      btcCurrentPrice: '',
-      ethCurrentPrice: ''
-    };
-  }
-
-  componentDidMount() {
+  useEffect(() => {
     const getBtcPrice = () => {
-    fetch(btcUrl)
-      .then(response => response.json())
-      .then(response => this.setState({btcCurrentPrice : response.USD}));
+      fetch(btcUrl).then(response => response.json()).then(response => setBtc(response.USD))
     }
 
     const getEthPrice = () => {
-      fetch(ethUrl)
-        .then(response => response.json())
-        .then(response => this.setState({ethCurrentPrice : response.USD}))
+      fetch(ethUrl).then(response => response.json()).then(response => setEth(response.USD))
     }
+  }, [btc, eth])
 
-    setInterval(getBtcPrice, 3000);
-    setInterval(getEthPrice, 3000);
-  }
+  setInterval(getBtcPrice, 3000)
+  setInterval(getEthPrice, 3000)
 
-
-  render() {
-    const { btcCurrentPrice } = this.state;
-    const { ethCurrentPrice } = this.state;
-
-    return <h1>The price of bitcoin is ${this.state.btcCurrentPrice} and the price of ethereum is ${this.state.ethCurrentPrice}</h1>
-  }
+  return (
+    <div>btc: {btc}, eth: {eth}</div>
+  );
 }
 
 export default App;
-
