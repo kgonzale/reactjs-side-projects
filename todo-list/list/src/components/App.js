@@ -1,40 +1,30 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import Header from "./Header.js";
 import TodoList from "./TodoList";
 
-class App extends Component {
-  constructor(props) {
-    super(props);
+const App = () => {
+  const [todo, setTodo] = useState(["eat", "sleep", "code"])
 
-    this.state = {
-      todos: ["eat", "sleep", "code"]
-    };
-  }
-
-  onDeleteTodo = deleteIndex => {
-    let deleteTodo = this.state.todos.slice();
+  const onDeleteTodo = (deleteIndex) => {
+    const deleteTodo = todo.slice();
     deleteTodo.splice(deleteIndex, 1);
-    this.setState({ todos: deleteTodo });
-  };
-
-  onAddTodo = text => {
-    if (text === "") {
-      return;
-    }
-
-    let newTodo = this.state.todos.slice();
-    newTodo.push(text);
-    this.setState({ todos: newTodo });
-  };
-
-  render() {
-    return (
-      <div>
-        <Header onAddTodo={this.onAddTodo} />
-        <TodoList onDeleteTodo={this.onDeleteTodo} todos={this.state.todos} />
-      </div>
-    );
+    setTodo(deleteTodo);
   }
+
+  const onAddTodo = (text) => {
+    if (text === "") { return; }
+
+    const newTodo = todo.slice();
+    newTodo.push(text);
+    setTodo(newTodo);
+  }
+
+  return (
+    <div>
+      <Header onAddTodo={onAddTodo} />
+      <TodoList onDeleteTodo={onDeleteTodo} todos={todo} />
+    </div>
+  );
 }
 
 export default App;
